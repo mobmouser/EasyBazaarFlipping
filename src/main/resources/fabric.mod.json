@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "easybazaarflipping",
+  "version": "${version}",
+  "name": "EasyBazaarFlipping",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/easybazaarflipping/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.mobmouser.easybazaarflipping.client.EasybazaarflippingDataGenerator"
+    ],
+    "client": [
+      "org.mobmouser.easybazaarflipping.client.EasybazaarflippingClient"
+    ],
+    "main": [
+      "org.mobmouser.easybazaarflipping.Easybazaarflipping"
+    ]
+  },
+  "mixins": [
+    "easybazaarflipping.mixins.json",
+    {
+      "config": "easybazaarflipping.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
