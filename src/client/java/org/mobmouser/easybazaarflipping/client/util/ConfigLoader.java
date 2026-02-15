@@ -8,7 +8,6 @@ import java.util.Properties;
 public class ConfigLoader {
     private static final Path CONFIG_PATH = Path.of("config", "bazaar-optimizer.properties");
     private static Properties properties = null;
-    private static String API_KEY = "";
 
     public static String get(String key) {
         if (properties == null) {

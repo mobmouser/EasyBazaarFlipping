@@ -2,6 +2,7 @@ package org.mobmouser.easybazaarflipping.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import org.mobmouser.easybazaarflipping.client.bazaar.api.GetPurse;
+import org.mobmouser.easybazaarflipping.client.commands.CommandLoader;
 import org.mobmouser.easybazaarflipping.client.gui.ScreenRenderer;
 import org.mobmouser.easybazaarflipping.client.util.ChatListener;
 import org.mobmouser.easybazaarflipping.client.util.NpcSellCounter;
