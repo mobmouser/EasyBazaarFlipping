@@ -34,7 +34,7 @@ public class ConfigLoader {
             } else {
                 Files.createDirectories(CONFIG_PATH.getParent());
                 Files.writeString(CONFIG_PATH,
-                        "# Bazaar Optimizer Config\nAPI_KEY="+ API_KEY +"\n");
+                        "# Bazaar Optimizer Config\nAPI_KEY=your_api_key_here\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
