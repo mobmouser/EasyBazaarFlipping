@@ -14,18 +14,27 @@ public class ConfigLoader {
         if (properties == null) {
             load();
         }
-        return properties.getProperty(key, "");
+        String value = properties.getProperty(key, "").trim();
+        return value;
+    }
+
+    // 設定を再読み込み
+    public static void reload() {
+        properties = null;
+        load();
     }
 
     private static void load() {
+        if (properties != null) return;
         properties = new Properties();
         try {
+
             if (Files.exists(CONFIG_PATH)) {
                 properties.load(Files.newBufferedReader(CONFIG_PATH));
             } else {
                 Files.createDirectories(CONFIG_PATH.getParent());
-                Files.writeString(CONFIG_PATH, "# Bazaar Optimizer Config\nAPI_KEY=" + API_KEY + "\n");
-                System.out.println("[BazaarOptimizer] Config file created: " + CONFIG_PATH);
+                Files.writeString(CONFIG_PATH,
+                        "# Bazaar Optimizer Config\nAPI_KEY="+ API_KEY +"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
