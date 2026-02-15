@@ -14,5 +14,6 @@ public class EasybazaarflippingClient implements ClientModInitializer {
         GetPurse.initUuid();
         ChatListener.register();
         NpcSellCounter.init();
+        CommandLoader.register();
     }
 }
