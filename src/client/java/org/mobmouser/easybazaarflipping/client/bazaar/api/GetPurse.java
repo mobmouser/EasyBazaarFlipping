@@ -41,10 +41,20 @@ public class GetPurse {
 
                 int waitCount = 0;
                 while (client.player == null) {
+                    waitCount++;
+                    if (waitCount % 10 == 0) {
+                    }
                     Thread.sleep(1000);
                 }
+
                 String uuid = client.player.getUuidAsString().replace("-", "");
+
                 String apiKey = ConfigLoader.get("API_KEY");
+
+                if (apiKey.isEmpty() || apiKey.equals("your_api_key_here")) {
+                    status = "API key not set";
+                    return;
+                }
 
                 JsonObject playerJson = fetchJson(
                         "https://api.hypixel.net/v2/player?uuid=" + uuid, apiKey);
@@ -83,7 +93,6 @@ public class GetPurse {
 
         new Thread(() -> {
             try {
-                String apiKey = ConfigLoader.get("API_KEY");
                 JsonObject profilesJson = fetchJson(
                         "https://api.hypixel.net/v2/skyblock/profiles?uuid=" + cachedUuid, apiKey);
 
@@ -130,7 +139,6 @@ public class GetPurse {
             conn.setRequestProperty("API-Key", apiKey);
 
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                System.out.println("[GetPurse] HTTP error: " + conn.getResponseCode());
                 return null;
             }
 
