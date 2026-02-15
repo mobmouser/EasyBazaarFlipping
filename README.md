@@ -48,6 +48,8 @@ Optimizes Bazaar to NPC sell profit by analyzing real-time Bazaar data.
 4. `API_KEY=あなたのキー` を設定（ゲーム内で `/api new` で取得）
 5. ゲーム内で `/bzreload` を実行して反映
 
+---------------------------------------------------------------
+
 1. Requires Fabric 1.21.5 + Fabric API
 2. Place mod in mods folder and launch once
 3. Edit `config/bazaar-optimizer.properties`
