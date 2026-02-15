@@ -62,6 +62,7 @@ public class GetPurse {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                status = "Init error";
             }
         }).start();
     }
