@@ -72,6 +72,7 @@ public class GetPurse {
         String apiKey = ConfigLoader.get("API_KEY");
         if (fetchingPurse || cachedUuid == null || apiKey.isEmpty()) {
             if (cachedUuid == null) status = "UUID not ready";
+            else status = "API key not set";
             return;
         }
         fetchingPurse = true;
