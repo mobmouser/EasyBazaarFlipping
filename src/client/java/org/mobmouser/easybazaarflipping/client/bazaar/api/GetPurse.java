@@ -38,6 +38,8 @@ public class GetPurse {
         new Thread(() -> {
             try {
                 MinecraftClient client = MinecraftClient.getInstance();
+
+                int waitCount = 0;
                 while (client.player == null) {
                     Thread.sleep(1000);
                 }
