@@ -115,4 +115,8 @@ public class GetBuyPrice {
 
         return volumeMap;
     }
+
+    public static void clearCache() {
+        cachedProducts = null;
+    }
 }

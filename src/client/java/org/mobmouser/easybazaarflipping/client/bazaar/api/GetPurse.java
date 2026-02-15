@@ -59,7 +59,8 @@ public class GetPurse {
     // 非同期でPurse取得してキャッシュに保存
     // GetPurse.java の fetchPurseAsync 内
     public static void fetchPurseAsync() {
-        if (fetchingPurse || cachedUuid == null) {
+        String apiKey = ConfigLoader.get("API_KEY");
+        if (fetchingPurse || cachedUuid == null || apiKey.isEmpty()) {
             if (cachedUuid == null) status = "UUID not ready";
             return;
         }
