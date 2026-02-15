@@ -46,10 +46,20 @@ public class GetPurse {
 
                 JsonObject playerJson = fetchJson(
                         "https://api.hypixel.net/v2/player?uuid=" + uuid, apiKey);
-                if (playerJson != null) {
-                    cachedUuid = playerJson.getAsJsonObject("player").get("uuid").getAsString();
-                    System.out.println("[GetPurse] UUID cached: " + cachedUuid);
+
+                if (playerJson == null) {
+                    status = "API error";
+                    return;
                 }
+
+                if (!playerJson.has("player")) {
+                    status = "Invalid response";
+                    return;
+                }
+
+                cachedUuid = playerJson.getAsJsonObject("player").get("uuid").getAsString();
+                status = "Ready";
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
