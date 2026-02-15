@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.glfw.GLFW;
+import org.mobmouser.easybazaarflipping.client.bazaar.api.GetBuyPrice;
 import org.mobmouser.easybazaarflipping.client.bazaar.api.GetPurse;
 import org.mobmouser.easybazaarflipping.client.bazaar.data.BazaarEvaluationResult;
 import org.mobmouser.easybazaarflipping.client.bazaar.data.BazaarOffer;
@@ -135,6 +136,19 @@ public class ScreenRenderer {
                         if (clicked && mouseX >= btnFetchX && mouseX <= btnFetchX + btnFetchWidth
                                 && mouseY >= 26 && mouseY <= 40) {
                             GetPurse.fetchPurseAsync();
+
+                            // 価格データも非同期で更新
+                            new Thread(() -> {
+                                GetBuyPrice.clearCache();
+                                List<BazaarOffer> newItems = ItemMerger.mergeAll();
+                                // メインスレッドで反映
+                                MinecraftClient.getInstance().execute(() -> {
+                                    cachedItems = newItems;
+                                    cachedEvalResults = BazaarScorer.evaluate(cachedItems);
+                                    cachedBuyOrderResults = BuyOrderScorer.evaluate(cachedItems);
+                                    lastUpdateTime = System.currentTimeMillis();
+                                });
+                            }).start();
                         }
 
                         // ステータス表示
@@ -198,6 +212,7 @@ public class ScreenRenderer {
                             if (clicked && mouseX >= x && mouseX <= x + line1Width
                                     && mouseY >= itemStartY && mouseY <= itemEndY) {
                                 client.player.networkHandler.sendChatCommand("bz " + item.getName());
+                                NotificationRenderer.show("Copied: " + item.getAmount(), mouseX, mouseY);
                                 client.keyboard.setClipboard(String.valueOf(item.getAmount()));
                             }
 
@@ -239,6 +254,7 @@ public class ScreenRenderer {
                             if (clicked && mouseX >= x && mouseX <= x + line1Width
                                     && mouseY >= itemStartY && mouseY <= itemEndY) {
                                 client.keyboard.setClipboard(String.valueOf(canBuy));
+                                NotificationRenderer.show("Copied: " + canBuy, mouseX, mouseY);
                                 client.player.networkHandler.sendChatCommand("bz " + item.getName());
                             }
 
